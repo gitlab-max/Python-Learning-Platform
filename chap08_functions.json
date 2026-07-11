@@ -1,0 +1,30 @@
+{
+  "functions": {
+    "name": "📦 فصل ۸: توابع",
+    "questions": [
+      {
+        "clause": "8.1",
+        "type": "mcq",
+        "scenario": "در پایتون، توابع با `def` تعریف می‌شوند و می‌توانند پارامتر بگیرند و با `return` مقدار بازگردانند. برای فراخوانی تابع از نام آن استفاده می‌شود.",
+        "question": "کدام یک از موارد زیر یک تابع صحیح برای محاسبه فاکتوریل است؟",
+        "options": [
+          "A. def factorial(n): if n==0: return 1 else: return n*factorial(n-1)",
+          "B. function factorial(n): if n==0: return 1 else: return n*factorial(n-1)",
+          "C. def factorial(n) { if n==0: return 1 else: return n*factorial(n-1) }",
+          "D. factorial(n) = n! "
+        ],
+        "correct": "A",
+        "explanation": "در پایتون توابع با def تعریف می‌شوند و برای بازگشت از return استفاده می‌شود."
+      },
+      {
+        "clause": "8.2",
+        "type": "text",
+        "scenario": "یک تابع به نام `is_prime` بنویسید که یک عدد را دریافت کند و `True` برگرداند اگر عدد اول باشد، در غیر این صورت `False` برگرداند. سپس این تابع را برای عدد ۱۷ فراخوانی کرده و نتیجه را چاپ کنید.",
+        "question": "کد پایتون خود را اینجا تایپ کنید:",
+        "options": [],
+        "correct": "def is_prime(n):\n    if n < 2: return False\n    for i in range(2, int(n**0.5)+1):\n        if n % i == 0: return False\n    return True\n\nprint(is_prime(17))",
+        "explanation": "تابع با بررسی بخش‌پذیری تا ریشه دوم عدد، اول بودن را تشخیص می‌دهد."
+      }
+    ]
+  }
+}

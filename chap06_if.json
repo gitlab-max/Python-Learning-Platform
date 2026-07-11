@@ -1,0 +1,30 @@
+{
+  "conditions": {
+    "name": "🔀 فصل ۶: شرط‌ها",
+    "questions": [
+      {
+        "clause": "6.1",
+        "type": "mcq",
+        "scenario": "در پایتون، از `if`، `elif` و `else` برای تصمیم‌گیری استفاده می‌شود. ساختار کلی به این صورت است:\n```python\nif condition:\n    # code\nelif condition:\n    # code\nelse:\n    # code\n```",
+        "question": "کدام کد به درستی نمره را بررسی کرده و رتبه را چاپ می‌کند؟ (نمره >= 18 عالی، >= 14 خوب، >= 10 متوسط، و کمتر از 10 ضعیف)",
+        "options": [
+          "A. if score >= 18: print('Excellent') elif score >= 14: print('Good') elif score >= 10: print('Average') else: print('Weak')",
+          "B. if score >= 10: print('Average') elif score >= 14: print('Good') elif score >= 18: print('Excellent') else: print('Weak')",
+          "C. if score >= 18: print('Excellent') if score >= 14: print('Good') if score >= 10: print('Average') else: print('Weak')",
+          "D. if score >= 18: print('Excellent') elif score >= 14: print('Good') if score >= 10: print('Average') else: print('Weak')"
+        ],
+        "correct": "A",
+        "explanation": "ترتیب شرط‌ها باید از بالا به پایین و از بزرگترین به کوچکترین باشد تا صحیح عمل کند."
+      },
+      {
+        "clause": "6.2",
+        "type": "text",
+        "scenario": "برنامه‌ای بنویسید که سن کاربر را دریافت کرده و بر اساس آن پیام زیر را چاپ کند:\n- کمتر از ۱۸ سال: «نوجوان»\n- ۱۸ تا ۶۰ سال: «بزرگسال»\n- بیشتر از ۶۰ سال: «سالمند»",
+        "question": "کد پایتون خود را اینجا تایپ کنید:",
+        "options": [],
+        "correct": "age = int(input('Enter your age: '))\nif age < 18:\n    print('Teenager')\nelif age <= 60:\n    print('Adult')\nelse:\n    print('Senior')",
+        "explanation": "با استفاده از if، elif و else می‌توانیم محدوده‌های مختلف سنی را بررسی کنیم."
+      }
+    ]
+  }
+}

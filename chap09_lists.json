@@ -1,0 +1,30 @@
+{
+  "data_structures": {
+    "name": "📋 فصل ۹: ساختمان داده‌ها",
+    "questions": [
+      {
+        "clause": "9.1",
+        "type": "mcq",
+        "scenario": "لیست‌ها در پایتون با `[]` تعریف می‌شوند و می‌توانند شامل عناصر با انواع مختلف باشند. متدهای رایج شامل `append()`، `insert()`، `remove()`، `pop()` و `len()` هستند.",
+        "question": "کدام کد به درستی یک لیست از اعداد ۱ تا ۵ ایجاد کرده و سپس عدد ۶ را به آن اضافه می‌کند؟",
+        "options": [
+          "A. mylist = [1,2,3,4,5]; mylist.append(6)",
+          "B. mylist = (1,2,3,4,5); mylist.append(6)",
+          "C. mylist = [1,2,3,4,5]; mylist.add(6)",
+          "D. mylist = {1,2,3,4,5}; mylist.add(6)"
+        ],
+        "correct": "A",
+        "explanation": "لیست با [] ساخته می‌شود و متد append برای افزودن به انتهای لیست استفاده می‌شود."
+      },
+      {
+        "clause": "9.2",
+        "type": "text",
+        "scenario": "برنامه‌ای بنویسید که یک لیست از ۱۰ عدد از کاربر دریافت کند (با استفاده از حلقه) و سپس میانگین آن‌ها را محاسبه و چاپ کند.",
+        "question": "کد پایتون خود را اینجا تایپ کنید:",
+        "options": [],
+        "correct": "numbers = []\nfor i in range(10):\n    num = int(input(f'Enter number {i+1}: '))\n    numbers.append(num)\naverage = sum(numbers) / len(numbers)\nprint('Average =', average)",
+        "explanation": "با استفاده از حلقه، اعداد را دریافت و به لیست اضافه می‌کنیم و سپس میانگین را محاسبه می‌کنیم."
+      }
+    ]
+  }
+}
