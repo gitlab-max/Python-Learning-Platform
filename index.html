@@ -1,507 +1,1165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Python Learning Platform<</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Python Learning Platform</title>
     <style>
-        * { box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
-        body { background: #f0f4f8; margin: 0; padding: 20px; }
-        .app-container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 32px; box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1); overflow: hidden; }
-        .header { background: #1a3e6f; color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .header h1 { margin: 0; font-size: 1.6rem; }
-        .ref-selector { background: #e9edf2; padding: 0.8rem 2rem; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid #d0d7de; }
-        .ref-selector label { font-weight: 600; }
-        .ref-selector select { padding: 8px 12px; border-radius: 30px; border: 1px solid #cbd5e1; font-size: 1rem; background: white; }
-        .edit-mode-btn { background: #ffc107; color: #1a3e6f; border: none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; }
-        .topic-bar { background: #e9edf2; padding: 0.8rem 2rem; display: flex; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #d0d7de; }
-        .topic-btn { background: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; border: 1px solid #cbd5e1; }
-        .topic-btn.active { background: #1a3e6f; color: white; }
-        .quiz-panel { padding: 2rem; }
-        .progress { font-size: 0.85rem; color: #475569; margin-bottom: 1rem; }
-        .scenario { background: #f8fafc; padding: 1.2rem; border-radius: 20px; border-left: 5px solid #1a3e6f; margin-bottom: 1.5rem; }
-        .question-text { font-weight: 700; font-size: 1.2rem; margin-bottom: 1.2rem; }
-        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
-        .option { background: white; border: 1px solid #cbd5e1; border-radius: 60px; padding: 12px 18px; cursor: pointer; }
-        .option.disabled { pointer-events: none; opacity: 0.7; }
-        .feedback { background: #f1f5f9; padding: 1rem; border-radius: 20px; margin: 1rem 0; border-left: 4px solid #94a3b8; }
-        .feedback.correct { background: #e6f9ed; border-left-color: #2b8c4a; }
-        .feedback.wrong { background: #fee9e6; border-left-color: #c2410c; }
-        .next-btn { background: #1a3e6f; color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; }
-        .edit-panel { background: #fef9e3; border-top: 2px solid #e6b800; padding: 1.5rem; margin-top: 1rem; display: none; }
-        .edit-panel h3 { margin-top: 0; }
-        .topic-selector { margin-bottom: 1rem; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .topic-selector select { padding: 8px 12px; border-radius: 30px; border: 1px solid #cbd5e1; font-size: 1rem; }
-        .topic-editor, .question-editor { border: 1px solid #ddd; padding: 1rem; margin-bottom: 1rem; border-radius: 12px; background: white; }
-        .topic-editor input, .question-editor input, .question-editor textarea { width: 100%; margin-bottom: 8px; padding: 8px; border-radius: 8px; border: 1px solid #ccc; }
-        .btn-small { background: #1a3e6f; color: white; border: none; padding: 5px 12px; border-radius: 20px; cursor: pointer; margin-right: 8px; }
-        .btn-danger { background: #c2410c; }
-        .btn-warning { background: #e6b800; color: #1a3e6f; }
-        footer { background: #f8fafc; text-align: center; padding: 1rem; font-size: 0.75rem; border-top: 1px solid #e2e8f0; }
-        .error-msg { background: #fee9e6; color: #c2410c; padding: 1rem; border-radius: 12px; margin: 1rem; text-align: center; }
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1a3e6f;
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .ref-selector {
+            background: #e9edf2;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        .ref-selector label {
+            font-weight: 600;
+        }
+
+        .ref-selector select {
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .edit-mode-btn {
+            background: #ffc107;
+            color: #1a3e6f;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .edit-mode-btn:hover {
+            background: #e6a800;
+        }
+
+        .topic-bar {
+            background: #e9edf2;
+            padding: 0.8rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        .topic-btn {
+            background: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #cbd5e1;
+            transition: 0.2s;
+        }
+
+        .topic-btn:hover {
+            background: #dce3ec;
+        }
+
+        .topic-btn.active {
+            background: #1a3e6f;
+            color: white;
+            border-color: #1a3e6f;
+        }
+
+        .quiz-panel {
+            padding: 2rem;
+        }
+
+        .progress {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+
+        .scenario {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 20px;
+            border-right: 5px solid #1a3e6f;
+            margin-bottom: 1.5rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .question-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .option {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 14px 18px;
+            cursor: pointer;
+            line-height: 1.9;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .option:hover:not(.disabled) {
+            background: #eef2f7;
+            border-color: #94a3b8;
+        }
+
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .option.selected-correct {
+            background: #d4edda;
+            border-color: #2b8c4a;
+        }
+
+        .option.selected-wrong {
+            background: #f8d7da;
+            border-color: #c2410c;
+        }
+
+        .feedback {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-right: 4px solid #94a3b8;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .feedback.correct {
+            background: #e6f9ed;
+            border-right-color: #2b8c4a;
+        }
+
+        .feedback.wrong {
+            background: #fee9e6;
+            border-right-color: #c2410c;
+        }
+
+        .next-btn {
+            background: #1a3e6f;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .next-btn:hover {
+            background: #0f2d52;
+        }
+
+        /* --- Edit Panel --- */
+        .edit-panel {
+            background: #fef9e3;
+            border-top: 2px solid #e6b800;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .edit-panel h3 {
+            margin-top: 0;
+        }
+
+        .topic-selector {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .topic-selector select {
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid #cbd5e1;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .topic-editor,
+        .question-editor {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .topic-editor input,
+        .question-editor input,
+        .question-editor textarea {
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+        }
+
+        .question-editor textarea {
+            min-height: 50px;
+            resize: vertical;
+        }
+
+        .question-editor .q-type-select {
+            width: auto;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-small {
+            background: #1a3e6f;
+            color: white;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .btn-small:hover {
+            opacity: 0.85;
+        }
+
+        .btn-danger {
+            background: #c2410c;
+        }
+
+        .btn-warning {
+            background: #e6b800;
+            color: #1a3e6f;
+        }
+
+        .btn-success {
+            background: #2b8c4a;
+        }
+
+        footer {
+            background: #f8fafc;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .error-msg {
+            background: #fee9e6;
+            color: #c2410c;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        /* --- RTL for all content --- */
+        .scenario,
+        .question-text,
+        .option,
+        .feedback {
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* --- Text answer input --- */
+        .text-answer-area {
+            margin: 1rem 0;
+        }
+
+        .text-answer-area textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 16px;
+            border: 2px solid #cbd5e1;
+            font-size: 1rem;
+            min-height: 80px;
+            resize: vertical;
+            font-family: inherit;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .text-answer-area textarea:focus {
+            outline: none;
+            border-color: #1a3e6f;
+        }
+
+        .text-answer-area .submit-text-btn {
+            background: #1a3e6f;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+
+        .text-answer-area .submit-text-btn:hover {
+            background: #0f2d52;
+        }
+
+        /* --- Image upload --- */
+        .image-upload-area {
+            margin: 1rem 0;
+        }
+
+        .image-upload-area .file-label {
+            display: inline-block;
+            background: #e9edf2;
+            padding: 12px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            border: 2px dashed #94a3b8;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .image-upload-area .file-label:hover {
+            background: #dce3ec;
+            border-color: #1a3e6f;
+        }
+
+        .image-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .image-upload-area .preview-container {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .image-upload-area .preview-container img {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 12px;
+            border: 2px solid #cbd5e1;
+            object-fit: cover;
+        }
+
+        .image-upload-area .submit-image-btn {
+            background: #1a3e6f;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .image-upload-area .submit-image-btn:hover {
+            background: #0f2d52;
+        }
+
+        /* --- Question type badge --- */
+        .q-type-badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            background: #1a3e6f;
+            margin-bottom: 10px;
+        }
+
+        .q-type-badge.text {
+            background: #8b5cf6;
+        }
+
+        .q-type-badge.image {
+            background: #0ea5e9;
+        }
+
+        .q-type-badge.mcq {
+            background: #1a3e6f;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 700px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .ref-selector {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .quiz-panel {
+                padding: 1rem;
+            }
+
+            .option {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+
+            .topic-bar {
+                padding: 0.5rem 1rem;
+                gap: 8px;
+            }
+
+            .topic-btn {
+                padding: 6px 14px;
+                font-size: 0.85rem;
+            }
+
+            .image-upload-area .preview-container img {
+                max-width: 140px;
+                max-height: 100px;
+            }
+        }
+
+        /* Scrollable topic bar on small screens */
+        .topic-bar {
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding: 0.8rem 1rem;
+            gap: 8px;
+        }
+
+        .topic-bar .topic-btn {
+            flex: 0 0 auto;
+        }
     </style>
 </head>
 <body>
-<div class="app-container">
-    <div class="header">
-        <h1>🐍 Python Learning Platform</h1>
-        <button id="toggleEditBtn" class="edit-mode-btn">✏️ Edit Mode</button>
-    </div>
-    <div class="ref-selector">
-        <label>📚 Select Reference:</label>
-        <select id="refSelect">
-            <option value="part1">فصل 1-_الگوریتم</option>
-            <option value="part2">فصل 2_فلوچارت</option>
-            <option value="part3">فصل 3_آشنایی با پایتون</option>
-            <option value="part4">فصل 4_متغیرها</option>
-            <option value="part5">فصل 5_عملگرها</option>
-            <option value="part6">فصل 6_شرط ها</option>
-            <option value="part7">فصل 7_حلقه ها</option>
-            <option value="part8">فصل 8_توابع</option>
-            <option value="part9">فصل 9_ساختمان داده ها</option>
-            <option value="part10">فصل 10_پروژه ها</option>
-        </select>
-        <span style="font-size:0.75rem;">(هر فصل دارای فایل آموزشی JSON مستقل است., e.g. chap01_algorithm.json, etc.)</span>
-    </div>
-    <div class="topic-bar" id="topicBar"><div style="padding: 1rem;">Select a reference to load questions...</div></div>
-    <div class="quiz-panel" id="quizPanel">
-        <div class="progress" id="progressMsg">Waiting</div>
-        <div id="questionArea"></div>
-    </div>
-    <div id="editPanel" class="edit-panel">
-        <h3>✏️ Edit Topic & Questions</h3>
-        <p>Select a chapter from the dropdown below – only that chapter will be loaded for editing.</p>
-        <div class="topic-selector">
-            <label>📌 Select topic to edit: </label>
-            <select id="editTopicSelect"></select>
-            <button id="refreshEditBtn" class="btn-small">Load for editing</button>
+
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🐍 Python Learning Platform</h1>
+            <button id="toggleEditBtn" class="edit-mode-btn">✏️ ویرایش</button>
         </div>
-        <div id="topicEditorArea"></div>
-        <button id="addQuestionToTopicBtn" class="btn-small">+ Add Question to Selected Topic</button>
-        <hr>
-        <button id="exportJsonBtn" class="btn-small btn-warning">📥 Export Current Reference as JSON</button>
-        <button id="resetDataBtn" class="btn-small btn-danger">Reset Current Reference to Original</button>
+
+        <!-- Reference Selector -->
+        <div class="ref-selector">
+            <label>📚 انتخاب فصل:</label>
+            <select id="refSelect">
+                <option value="part1">فصل 1 – الگوریتم</option>
+                <option value="part2">فصل 2 – فلوچارت</option>
+                <option value="part3">فصل 3 – آشنایی با پایتون</option>
+                <option value="part4">فصل 4 – متغیرها</option>
+                <option value="part5">فصل 5 – عملگرها</option>
+                <option value="part6">فصل 6 – شرط‌ها</option>
+                <option value="part7">فصل 7 – حلقه‌ها</option>
+                <option value="part8">فصل 8 – توابع</option>
+                <option value="part9">فصل 9 – ساختمان داده‌ها</option>
+                <option value="part10">فصل 10 – پروژه‌ها</option>
+            </select>
+            <span style="font-size:0.75rem;color:#475569;">(هر فصل فایل JSON مستقل دارد)</span>
+        </div>
+
+        <!-- Topic Bar -->
+        <div class="topic-bar" id="topicBar">
+            <div style="padding:1rem;">در حال بارگذاری...</div>
+        </div>
+
+        <!-- Quiz Panel -->
+        <div class="quiz-panel" id="quizPanel">
+            <div class="progress" id="progressMsg">در انتظار...</div>
+            <div id="questionArea"></div>
+        </div>
+
+        <!-- Edit Panel -->
+        <div id="editPanel" class="edit-panel">
+            <h3>✏️ ویرایش موضوع و سوالات</h3>
+            <p>از منوی زیر موضوع را انتخاب کنید.</p>
+            <div class="topic-selector">
+                <label>📌 موضوع:</label>
+                <select id="editTopicSelect"></select>
+                <button id="refreshEditBtn" class="btn-small">بارگذاری</button>
+            </div>
+            <div id="topicEditorArea"></div>
+            <button id="addQuestionToTopicBtn" class="btn-small">+ افزودن سوال</button>
+            <hr />
+            <button id="exportJsonBtn" class="btn-small btn-warning">📥 خروجی JSON</button>
+            <button id="resetDataBtn" class="btn-small btn-danger">↺ بازنشانی</button>
+        </div>
+
+        <footer>✅ پیشرفت هر فصل به‌صورت خودکار ذخیره می‌شود</footer>
     </div>
-    <footer>✅ Progress saved per reference • Edit mode edits only the selected chapter</footer>
-</div>
 
-<script>
-    // ---------- References configuration ----------
-    // Each reference maps to a JSON file name and a display label (for internal use)
-    const references = {
+    <script>
+        // ============================================================
+        //  CONFIGURATION
+        // ============================================================
+        const references = {
+            part1: { file: 'chap01_algorithm.json', label: 'فصل الگوریتم' },
+            part2: { file: 'chap02_flowchart.json', label: 'فصل فلوچارت' },
+            part3: { file: 'chap03_python.json', label: 'آشنایی با پایتون' },
+            part4: { file: 'chap04_variables.json', label: 'متغیرها' },
+            part5: { file: 'chap05_operators.json', label: 'عملگرها' },
+            part6: { file: 'chap06_if.json', label: 'شرط‌ها' },
+            part7: { file: 'chap07_loops.json', label: 'حلقه‌ها' },
+            part8: { file: 'chap08_functions.json', label: 'توابع' },
+            part9: { file: 'chap09_lists.json', label: 'ساختمان داده‌ها' },
+            part10: { file: 'chap10_projects.json', label: 'پروژه‌ها' }
+        };
 
-part1:{
-file:'chap01_algorithm.json',
-label:'فصل الگوریتم'
-},
+        // ============================================================
+        //  STATE
+        // ============================================================
+        let currentRef = 'part1';
+        let ORIGINAL_QUESTIONS = null;
+        let QUESTIONS = null;
+        let currentTopic = null;
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let userScore = 0;
+        let answerLock = false;
+        let isEditMode = false;
 
-part2:{
-file:'chap02_flowchart.json',
-label:'فصل فلوچارت'
-},
+        // For text & image answers
+        let textAnswerValue = '';
+        let imageAnswerFile = null;
+        let imageAnswerDataUrl = null;
 
-part3:{
-file:'chap03_python.json',
-label:'آشنایی با پایتون'
-},
-
-part4:{
-file:'chap04_variables.json',
-label:'متغیرها'
-},
-
-part5:{
-file:'chap05_operators.json',
-label:'عملگرها'
-},
-
-part6:{
-file:'chap06_if.json',
-label:'شرط‌ها'
-},
-
-part7:{
-file:'chap07_loops.json',
-label:'حلقه‌ها'
-},
-
-part8:{
-file:'chap08_functions.json',
-label:'توابع'
-},
-
-part9:{
-file:'chap09_lists.json',
-label:'ساختمان داده‌ها'
-},
-
-part10:{
-file:'chap10_projects.json',
-label:'پروژه‌ها'
-}
-
-};
-
-    let currentRef = 'part1';        // default
-    let ORIGINAL_QUESTIONS = null;
-    let QUESTIONS = null;
-    let currentTopic = null;
-    let currentQuestions = [];
-    let currentIndex = 0;
-    let userScore = 0;
-    let answerLock = false;
-    let isEditMode = false;
-
-    // Helper: localStorage keys with reference prefix
-    function getStorageKey(suffix) {
-        return `${currentRef}_${suffix}`;
-    }
-
-    // Load questions for the selected reference
-    async function loadQuestions() {
-        const refInfo = references[currentRef];
-        if (!refInfo) {
-            showError(`Unknown reference: ${currentRef}`);
-            return;
+        // ============================================================
+        //  HELPERS
+        // ============================================================
+        function getStorageKey(suffix) {
+            return `${currentRef}_${suffix}`;
         }
-        const url = refInfo.file;
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            const data = await response.json();
-            if (!data || typeof data !== 'object') throw new Error('Invalid JSON');
-            ORIGINAL_QUESTIONS = data;
-            const saved = localStorage.getItem(getStorageKey('editable_questions'));
-            if (saved) {
-                try { QUESTIONS = JSON.parse(saved); }
-                catch(e) { QUESTIONS = JSON.parse(JSON.stringify(ORIGINAL_QUESTIONS)); }
-            } else {
-                QUESTIONS = JSON.parse(JSON.stringify(ORIGINAL_QUESTIONS));
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m =>
+                m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'
+            );
+        }
+
+        function normalizeText(s) {
+            return (s || '').trim().replace(/\s+/g, ' ');
+        }
+
+        // ============================================================
+        //  LOAD / SAVE
+        // ============================================================
+        async function loadQuestions() {
+            const refInfo = references[currentRef];
+            if (!refInfo) { showError(`فصل نامشخص: ${currentRef}`); return; }
+            const url = refInfo.file;
+            try {
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                if (!data || typeof data !== 'object') throw new Error('JSON نامعتبر');
+                ORIGINAL_QUESTIONS = data;
+
+                const saved = localStorage.getItem(getStorageKey('editable_questions'));
+                if (saved) {
+                    try { QUESTIONS = JSON.parse(saved); } catch (_) { QUESTIONS = JSON.parse(JSON.stringify(
+                        ORIGINAL_QUESTIONS)); }
+                } else {
+                    QUESTIONS = JSON.parse(JSON.stringify(ORIGINAL_QUESTIONS));
+                }
+                startApp();
+            } catch (err) {
+                showError(`بارگذاری ${url} نشد: ${err.message}<br><br>👉 مطمئن شوید فایل وجود دارد و از سرور محلی استفاده می‌کنید.`);
+                document.getElementById('toggleEditBtn').style.display = 'none';
             }
-            startApp();
-        } catch (err) {
-            showError(`Could not load ${url}: ${err.message}<br><br>👉 Make sure the file exists in the same folder and you are running a local web server (e.g., "python -m http.server 8000").`);
+        }
+
+        function showError(msg) {
+            document.getElementById('topicBar').innerHTML = `<div class="error-msg">❌ ${msg}</div>`;
+            document.getElementById('progressMsg').innerText = 'خطا';
             document.getElementById('toggleEditBtn').style.display = 'none';
         }
-    }
 
-    function showError(msg) {
-        document.getElementById('topicBar').innerHTML = `<div class="error-msg">❌ ${msg}</div>`;
-        document.getElementById('progressMsg').innerText = 'Error loading';
-        document.getElementById('toggleEditBtn').style.display = 'none';
-    }
+        function saveQuestionsToLocalStorage() {
+            localStorage.setItem(getStorageKey('editable_questions'), JSON.stringify(QUESTIONS));
+            populateEditTopicSelect();
+        }
 
-    function startApp() {
-        document.getElementById('toggleEditBtn').style.display = 'block';
-        renderTopicBar();
-        // restore session for this reference
-        const savedTopic = localStorage.getItem(getStorageKey('lastTopic'));
-        if (savedTopic && QUESTIONS[savedTopic]) {
-            currentTopic = savedTopic;
-            currentIndex = parseInt(localStorage.getItem(getStorageKey('lastIndex'))) || 0;
-            userScore = parseInt(localStorage.getItem(getStorageKey('lastScore'))) || 0;
-            currentQuestions = QUESTIONS[currentTopic].questions;
+        function saveState() {
+            if (!currentTopic) return;
+            localStorage.setItem(getStorageKey('lastTopic'), currentTopic);
+            localStorage.setItem(getStorageKey('lastIndex'), currentIndex);
+            localStorage.setItem(getStorageKey('lastScore'), userScore);
+        }
+
+        // ============================================================
+        //  START APP
+        // ============================================================
+        function startApp() {
+            document.getElementById('toggleEditBtn').style.display = 'block';
             renderTopicBar();
-            showQuestion();
-        } else {
-            const firstTopic = Object.keys(QUESTIONS)[0];
-            if (firstTopic) loadTopic(firstTopic);
+            const savedTopic = localStorage.getItem(getStorageKey('lastTopic'));
+            if (savedTopic && QUESTIONS[savedTopic]) {
+                currentTopic = savedTopic;
+                currentIndex = parseInt(localStorage.getItem(getStorageKey('lastIndex'))) || 0;
+                userScore = parseInt(localStorage.getItem(getStorageKey('lastScore'))) || 0;
+                currentQuestions = QUESTIONS[currentTopic].questions;
+                renderTopicBar();
+                showQuestion();
+            } else {
+                const first = Object.keys(QUESTIONS)[0];
+                if (first) loadTopic(first);
+            }
+            populateEditTopicSelect();
         }
-        populateEditTopicSelect();
-    }
 
-    function populateEditTopicSelect() {
-        const select = document.getElementById('editTopicSelect');
-        if (!QUESTIONS) return;
-        select.innerHTML = '';
-        for (const [id, data] of Object.entries(QUESTIONS)) {
-            const option = document.createElement('option');
-            option.value = id;
-            option.textContent = data.name;
-            select.appendChild(option);
-        }
-    }
-
-    function saveQuestionsToLocalStorage() {
-        localStorage.setItem(getStorageKey('editable_questions'), JSON.stringify(QUESTIONS));
-        populateEditTopicSelect();
-    }
-
-    function resetToOriginal() {
-        if (confirm(`Reset all topics and questions for ${references[currentRef].label} to the original JSON? All edits will be lost.`)) {
-            QUESTIONS = JSON.parse(JSON.stringify(ORIGINAL_QUESTIONS));
-            saveQuestionsToLocalStorage();
-            const firstTopic = Object.keys(QUESTIONS)[0];
-            if (firstTopic) loadTopic(firstTopic);
-            else renderTopicBar();
-            if (isEditMode && document.getElementById('editTopicSelect').value) {
-                renderEditUI(document.getElementById('editTopicSelect').value);
+        // ============================================================
+        //  TOPIC BAR
+        // ============================================================
+        function renderTopicBar() {
+            const bar = document.getElementById('topicBar');
+            if (!QUESTIONS) return;
+            bar.innerHTML = '';
+            for (const [id, data] of Object.entries(QUESTIONS)) {
+                const btn = document.createElement('button');
+                btn.textContent = data.name;
+                btn.classList.add('topic-btn');
+                if (currentTopic === id) btn.classList.add('active');
+                btn.onclick = () => loadTopic(id);
+                bar.appendChild(btn);
             }
         }
-    }
 
-    function exportAsJson() {
-        const dataStr = JSON.stringify(QUESTIONS, null, 2);
-        const blob = new Blob([dataStr], {type: "application/json"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${currentRef}_edited.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-    function renderTopicBar() {
-        const bar = document.getElementById('topicBar');
-        if (!QUESTIONS) return;
-        bar.innerHTML = '';
-        for (const [id, data] of Object.entries(QUESTIONS)) {
-            const btn = document.createElement('button');
-            btn.textContent = data.name;
-            btn.classList.add('topic-btn');
-            if (currentTopic === id) btn.classList.add('active');
-            btn.onclick = () => loadTopic(id);
-            bar.appendChild(btn);
-        }
-    }
-
-    function loadTopic(topicId) {
-        currentTopic = topicId;
-        currentQuestions = QUESTIONS[topicId].questions;
-        currentIndex = 0;
-        userScore = 0;
-        answerLock = false;
-        renderTopicBar();
-        saveState();
-        showQuestion();
-    }
-
-    function saveState() {
-        if (!currentTopic) return;
-        localStorage.setItem(getStorageKey('lastTopic'), currentTopic);
-        localStorage.setItem(getStorageKey('lastIndex'), currentIndex);
-        localStorage.setItem(getStorageKey('lastScore'), userScore);
-    }
-
-    function showQuestion() {
-        if (!currentQuestions.length || currentIndex >= currentQuestions.length) {
-            const percent = Math.round((userScore / currentQuestions.length) * 100);
-            document.getElementById('questionArea').innerHTML = `
-                <div class="feedback" style="text-align:center;">
-                    ✅ Topic completed! <br>
-                    You scored ${userScore} out of ${currentQuestions.length} (${percent}%) <br>
-                    <button class="next-btn" id="restartTopicBtn">🔄 Restart Topic</button>
-                </div>
-            `;
-            document.getElementById('progressMsg').innerHTML = `Completed – ${userScore}/${currentQuestions.length} correct`;
-            document.getElementById('restartTopicBtn')?.addEventListener('click', () => loadTopic(currentTopic));
-            return;
-        }
-
-        const q = currentQuestions[currentIndex];
-        document.getElementById('progressMsg').innerHTML = `📌 ${QUESTIONS[currentTopic].name} — Q${currentIndex+1}/${currentQuestions.length} | Score: ${userScore}`;
-        
-        let html = `
-            <div class="scenario">📋 Scenario:<br> ${q.scenario}</div>
-            <div class="question-text">❓ ${q.question}</div>
-            <div class="options" id="optionsContainer">
-        `;
-        q.options.forEach(opt => {
-            const letter = opt.charAt(0);
-            html += `<div class="option" data-choice="${letter}">${opt}</div>`;
-        });
-        html += `</div><div id="feedbackArea"></div><div id="nextButtonArea"></div>`;
-        document.getElementById('questionArea').innerHTML = html;
-
-        document.querySelectorAll('.option').forEach(opt => {
-            opt.addEventListener('click', () => handleAnswer(opt.getAttribute('data-choice')));
-        });
-        answerLock = false;
-    }
-
-    function handleAnswer(selectedLetter) {
-        if (answerLock) return;
-        answerLock = true;
-        const q = currentQuestions[currentIndex];
-        const isCorrect = (selectedLetter === q.correct);
-        if (isCorrect) userScore++;
-        document.querySelectorAll('.option').forEach(opt => opt.classList.add('disabled'));
-        
-        const correctLetter = q.correct;
-        const correctText = q.options.find(opt => opt.startsWith(correctLetter));
-        const feedbackDiv = document.getElementById('feedbackArea');
-        const cls = isCorrect ? 'correct' : 'wrong';
-        feedbackDiv.innerHTML = `
-            <div class="feedback ${cls}">
-                ${isCorrect ? '✅ Correct!' : `❌ Incorrect. Correct answer: ${correctLetter}. ${correctText.substring(1)}`}
-                <br><strong>📖 Explanation:</strong> ${q.explanation}
-            </div>
-        `;
-        document.getElementById('nextButtonArea').innerHTML = `<button class="next-btn" id="nextBtn">Next Question →</button>`;
-        document.getElementById('nextBtn').onclick = () => {
-            currentIndex++;
+        function loadTopic(topicId) {
+            currentTopic = topicId;
+            currentQuestions = QUESTIONS[topicId].questions;
+            currentIndex = 0;
+            userScore = 0;
+            answerLock = false;
+            textAnswerValue = '';
+            imageAnswerFile = null;
+            imageAnswerDataUrl = null;
+            renderTopicBar();
             saveState();
             showQuestion();
-        };
-        document.getElementById('progressMsg').innerHTML = `📌 ${QUESTIONS[currentTopic].name} — Q${currentIndex+1}/${currentQuestions.length} | Score: ${userScore}`;
-        saveState();
-    }
-
-    // ---------- Edit Mode ----------
-    function toggleEditMode() {
-        isEditMode = !isEditMode;
-        document.getElementById('editPanel').style.display = isEditMode ? 'block' : 'none';
-        if (isEditMode) {
-            const selected = document.getElementById('editTopicSelect').value;
-            if (selected && QUESTIONS[selected]) renderEditUI(selected);
-            else if (Object.keys(QUESTIONS).length) {
-                const first = Object.keys(QUESTIONS)[0];
-                document.getElementById('editTopicSelect').value = first;
-                renderEditUI(first);
-            }
-        } else {
-            if (currentTopic) loadTopic(currentTopic);
-            else renderTopicBar();
         }
-    }
 
-    function renderEditUI(topicId) {
-        const topicData = QUESTIONS[topicId];
-        if (!topicData) return;
-        const container = document.getElementById('topicEditorArea');
-        container.innerHTML = '';
-        const topicDiv = document.createElement('div');
-        topicDiv.className = 'topic-editor';
-        topicDiv.innerHTML = `
-            <label>Topic Name:</label>
-            <input type="text" id="editTopicName" value="${escapeHtml(topicData.name)}" data-topic-id="${topicId}">
-            <button id="deleteTopicBtn" class="btn-small btn-danger" style="margin-top:8px;">Delete this Topic</button>
-            <hr>
-            <h4>Questions</h4>
-            <div id="questionsList"></div>
-        `;
-        container.appendChild(topicDiv);
-        
-        const questionsList = topicDiv.querySelector('#questionsList');
-        topicData.questions.forEach((q, idx) => {
-            const qDiv = document.createElement('div');
-            qDiv.className = 'question-editor';
-            qDiv.innerHTML = `
-                <textarea rows="2" data-qidx="${idx}" data-field="scenario" placeholder="Scenario">${escapeHtml(q.scenario)}</textarea>
-                <textarea rows="1" data-qidx="${idx}" data-field="question" placeholder="Question">${escapeHtml(q.question)}</textarea>
-                <input type="text" data-qidx="${idx}" data-field="option0" value="${escapeHtml(q.options[0])}" placeholder="Option A">
-                <input type="text" data-qidx="${idx}" data-field="option1" value="${escapeHtml(q.options[1])}" placeholder="Option B">
-                <input type="text" data-qidx="${idx}" data-field="option2" value="${escapeHtml(q.options[2])}" placeholder="Option C">
-                <input type="text" data-qidx="${idx}" data-field="option3" value="${escapeHtml(q.options[3])}" placeholder="Option D">
-                <input type="text" data-qidx="${idx}" data-field="correct" value="${q.correct}" placeholder="Correct letter (A/B/C/D)" style="width:80px;">
-                <textarea rows="2" data-qidx="${idx}" data-field="explanation" placeholder="Explanation">${escapeHtml(q.explanation)}</textarea>
-                <button class="btn-small btn-danger" data-action="deleteQuestion" data-qidx="${idx}">Delete Question</button>
+        // ============================================================
+        //  SHOW QUESTION (supports mcq / text / image)
+        // ============================================================
+        function showQuestion() {
+            if (!currentQuestions.length || currentIndex >= currentQuestions.length) {
+                const pct = Math.round((userScore / currentQuestions.length) * 100);
+                document.getElementById('questionArea').innerHTML = `
+                    <div class="feedback" style="text-align:center;">
+                        ✅ موضوع کامل شد!<br>
+                        امتیاز شما ${userScore} از ${currentQuestions.length} (${pct}%)<br>
+                        <button class="next-btn" id="restartTopicBtn">🔄 شروع مجدد</button>
+                    </div>
+                `;
+                document.getElementById('progressMsg').innerHTML =
+                    `تمام – ${userScore}/${currentQuestions.length} صحیح`;
+                document.getElementById('restartTopicBtn')?.addEventListener('click', () => loadTopic(currentTopic));
+                return;
+            }
+
+            const q = currentQuestions[currentIndex];
+            const topicName = QUESTIONS[currentTopic].name;
+            document.getElementById('progressMsg').innerHTML =
+                `📌 ${topicName} — سوال ${currentIndex+1}/${currentQuestions.length} | امتیاز: ${userScore}`;
+
+            // Build type badge
+            const qType = q.type || 'mcq';
+            const typeLabels = { mcq: 'چند گزینه‌ای', text: 'پاسخ تایپی', image: 'ارسال عکس' };
+            const typeBadge = `<span class="q-type-badge ${qType}">${typeLabels[qType] || 'چند گزینه‌ای'}</span>`;
+
+            let html = `
+                <div class="scenario">📋 سناریو:<br> ${escapeHtml(q.scenario)}</div>
+                <div class="question-text">❓ ${escapeHtml(q.question)}</div>
+                ${typeBadge}
             `;
-            questionsList.appendChild(qDiv);
-        });
-        
-        document.getElementById('editTopicName').addEventListener('change', (e) => {
-            QUESTIONS[topicId].name = e.target.value;
-            saveQuestionsToLocalStorage();
-            renderTopicBar();
-        });
-        document.getElementById('deleteTopicBtn').onclick = () => {
-            if (confirm(`Delete topic "${QUESTIONS[topicId].name}"?`)) {
-                delete QUESTIONS[topicId];
-                saveQuestionsToLocalStorage();
-                const first = Object.keys(QUESTIONS)[0];
-                if (first) {
-                    document.getElementById('editTopicSelect').value = first;
-                    renderEditUI(first);
-                    if (currentTopic === topicId) loadTopic(first);
-                    else renderTopicBar();
-                } else {
-                    document.getElementById('topicEditorArea').innerHTML = '<p>No topics left.</p>';
-                    renderTopicBar();
+
+            if (qType === 'mcq') {
+                html += renderMcq(q);
+            } else if (qType === 'text') {
+                html += renderTextQuestion(q);
+            } else if (qType === 'image') {
+                html += renderImageQuestion(q);
+            } else {
+                html += `<p style="color:red;">نوع سوال نامشخص: ${qType}</p>`;
+            }
+
+            html += `<div id="feedbackArea"></div><div id="nextButtonArea"></div>`;
+            document.getElementById('questionArea').innerHTML = html;
+
+            // Attach event listeners
+            if (qType === 'mcq') {
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.addEventListener('click', () => handleMcqAnswer(opt.getAttribute('data-choice')));
+                });
+            } else if (qType === 'text') {
+                const btn = document.getElementById('submitTextBtn');
+                const ta = document.getElementById('textAnswerInput');
+                if (btn && ta) {
+                    btn.addEventListener('click', () => handleTextAnswer());
+                    ta.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault();
+                            handleTextAnswer(); }
+                    });
+                }
+            } else if (qType === 'image') {
+                const fileInput = document.getElementById('imageFileInput');
+                const submitBtn = document.getElementById('submitImageBtn');
+                if (fileInput) {
+                    fileInput.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                                imageAnswerDataUrl = ev.target.result;
+                                const preview = document.getElementById('imagePreview');
+                                if (preview) {
+                                    preview.innerHTML =
+                                        `<img src="${imageAnswerDataUrl}" alt="تصویر ارسال شده">`;
+                                }
+                                document.getElementById('imageStatus').textContent = '📎 تصویر انتخاب شد';
+                            };
+                            reader.readAsDataURL(file);
+                            imageAnswerFile = file;
+                        }
+                    });
+                }
+                if (submitBtn) {
+                    submitBtn.addEventListener('click', handleImageAnswer);
                 }
             }
-        };
-        // Attach change listeners for question fields
-        document.querySelectorAll('#questionsList .question-editor input, #questionsList .question-editor textarea').forEach(field => {
-            if (!field.hasAttribute('data-action')) {
-                field.addEventListener('change', (e) => {
-                    const qidx = parseInt(field.getAttribute('data-qidx'));
-                    const fld = field.getAttribute('data-field');
-                    let val = field.value;
-                    if (fld === 'correct') val = val.toUpperCase();
-                    if (fld === 'option0') QUESTIONS[topicId].questions[qidx].options[0] = val;
-                    else if (fld === 'option1') QUESTIONS[topicId].questions[qidx].options[1] = val;
-                    else if (fld === 'option2') QUESTIONS[topicId].questions[qidx].options[2] = val;
-                    else if (fld === 'option3') QUESTIONS[topicId].questions[qidx].options[3] = val;
-                    else if (fld === 'correct') QUESTIONS[topicId].questions[qidx].correct = val;
-                    else if (fld === 'scenario') QUESTIONS[topicId].questions[qidx].scenario = val;
-                    else if (fld === 'question') QUESTIONS[topicId].questions[qidx].question = val;
-                    else if (fld === 'explanation') QUESTIONS[topicId].questions[qidx].explanation = val;
-                    saveQuestionsToLocalStorage();
-                });
+
+            answerLock = false;
+        }
+
+        // ---------- MCQ ----------
+        function renderMcq(q) {
+            let html = `<div class="options" id="optionsContainer">`;
+            (q.options || []).forEach(opt => {
+                const letter = opt.substring(0, 1).toUpperCase();
+                html += `<div class="option" data-choice="${letter}">${escapeHtml(opt)}</div>`;
+            });
+            html += `</div>`;
+            return html;
+        }
+
+        function handleMcqAnswer(selectedLetter) {
+            if (answerLock) return;
+            answerLock = true;
+            const q = currentQuestions[currentIndex];
+            const isCorrect = (selectedLetter === q.correct);
+            if (isCorrect) userScore++;
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.add('disabled');
+                const ch = opt.getAttribute('data-choice');
+                if (ch === q.correct) opt.classList.add('selected-correct');
+                else if (ch === selectedLetter && !isCorrect) opt.classList.add('selected-wrong');
+            });
+
+            const correctLetter = q.correct;
+            const correctText = (q.options || []).find(o => o.startsWith(correctLetter)) || '';
+            const fb = document.getElementById('feedbackArea');
+            const cls = isCorrect ? 'correct' : 'wrong';
+            fb.innerHTML = `
+                <div class="feedback ${cls}">
+                    ${isCorrect ? '✅ درست!' : `❌ نادرست. پاسخ صحیح: ${correctLetter}. ${correctText.substring(1)}`}
+                    <br><strong>📖 توضیح:</strong> ${escapeHtml(q.explanation)}
+                </div>
+            `;
+            document.getElementById('nextButtonArea').innerHTML =
+                `<button class="next-btn" id="nextBtn">سوال بعدی →</button>`;
+            document.getElementById('nextBtn').onclick = () => { currentIndex++;
+                saveState();
+                showQuestion(); };
+            document.getElementById('progressMsg').innerHTML =
+                `📌 ${QUESTIONS[currentTopic].name} — سوال ${currentIndex+1}/${currentQuestions.length} | امتیاز: ${userScore}`;
+            saveState();
+        }
+
+        // ---------- TEXT ----------
+        function renderTextQuestion(q) {
+            return `
+                <div class="text-answer-area">
+                    <textarea id="textAnswerInput" placeholder="پاسخ خود را در اینجا بنویسید..." rows="3"></textarea>
+                    <br>
+                    <button class="submit-text-btn" id="submitTextBtn">✅ ارسال پاسخ</button>
+                </div>
+            `;
+        }
+
+        function handleTextAnswer() {
+            if (answerLock) return;
+            const ta = document.getElementById('textAnswerInput');
+            if (!ta) return;
+            const userAns = normalizeText(ta.value);
+            if (!userAns) {
+                alert('لطفاً پاسخ خود را وارد کنید.');
+                return;
             }
-        });
-        document.querySelectorAll('#questionsList .btn-danger[data-action="deleteQuestion"]').forEach(btn => {
-            btn.onclick = () => {
-                const qidx = parseInt(btn.getAttribute('data-qidx'));
-                if (confirm('Delete this question?')) {
-                    QUESTIONS[topicId].questions.splice(qidx, 1);
+            answerLock = true;
+            const q = currentQuestions[currentIndex];
+            const expected = normalizeText(q.correct || '');
+            const isCorrect = (userAns === expected);
+
+            if (isCorrect) userScore++;
+
+            const fb = document.getElementById('feedbackArea');
+            const cls = isCorrect ? 'correct' : 'wrong';
+            fb.innerHTML = `
+                <div class="feedback ${cls}">
+                    ${isCorrect ? '✅ پاسخ شما درست است!' : `❌ پاسخ شما نادرست است. پاسخ صحیح: «${escapeHtml(expected)}»`}
+                    <br><strong>📖 توضیح:</strong> ${escapeHtml(q.explanation)}
+                </div>
+            `;
+            ta.disabled = true;
+            document.getElementById('nextButtonArea').innerHTML =
+                `<button class="next-btn" id="nextBtn">سوال بعدی →</button>`;
+            document.getElementById('nextBtn').onclick = () => { currentIndex++;
+                saveState();
+                showQuestion(); };
+            document.getElementById('progressMsg').innerHTML =
+                `📌 ${QUESTIONS[currentTopic].name} — سوال ${currentIndex+1}/${currentQuestions.length} | امتیاز: ${userScore}`;
+            saveState();
+        }
+
+        // ---------- IMAGE ----------
+        function renderImageQuestion(q) {
+            return `
+                <div class="image-upload-area">
+                    <label class="file-label" for="imageFileInput">📸 انتخاب تصویر</label>
+                    <input type="file" id="imageFileInput" accept="image/*">
+                    <div class="preview-container">
+                        <div id="imagePreview"></div>
+                        <span id="imageStatus" style="font-size:0.9rem;color:#475569;">هیچ تصویری انتخاب نشده</span>
+                    </div>
+                    <br>
+                    <button class="submit-image-btn" id="submitImageBtn">✅ ارسال تصویر</button>
+                </div>
+            `;
+        }
+
+        function handleImageAnswer() {
+            if (answerLock) return;
+            if (!imageAnswerFile) {
+                alert('لطفاً ابتدا یک تصویر انتخاب کنید.');
+                return;
+            }
+            answerLock = true;
+            const q = currentQuestions[currentIndex];
+            // For image questions, we consider it correct if the user uploaded anything.
+            // Optionally we could check file size or type, but we keep it simple.
+            const isCorrect = true;
+            if (isCorrect) userScore++;
+
+            const fb = document.getElementById('feedbackArea');
+            const cls = 'correct';
+            fb.innerHTML = `
+                <div class="feedback ${cls}">
+                    ✅ تصویر شما با موفقیت ارسال شد!
+                    <br><strong>📖 توضیح:</strong> ${escapeHtml(q.explanation)}
+                </div>
+            `;
+            document.getElementById('submitImageBtn').disabled = true;
+            document.getElementById('imageFileInput').disabled = true;
+            document.getElementById('nextButtonArea').innerHTML =
+                `<button class="next-btn" id="nextBtn">سوال بعدی →</button>`;
+            document.getElementById('nextBtn').onclick = () => {
+                currentIndex++;
+                imageAnswerFile = null;
+                imageAnswerDataUrl = null;
+                saveState();
+                showQuestion();
+            };
+            document.getElementById('progressMsg').innerHTML =
+                `📌 ${QUESTIONS[currentTopic].name} — سوال ${currentIndex+1}/${currentQuestions.length} | امتیاز: ${userScore}`;
+            saveState();
+        }
+
+        // ============================================================
+        //  EDIT MODE
+        // ============================================================
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            document.getElementById('editPanel').style.display = isEditMode ? 'block' : 'none';
+            if (isEditMode) {
+                const sel = document.getElementById('editTopicSelect').value;
+                if (sel && QUESTIONS[sel]) renderEditUI(sel);
+                else {
+                    const first = Object.keys(QUESTIONS)[0];
+                    if (first) { document.getElementById('editTopicSelect').value = first;
+                        renderEditUI(first); }
+                }
+            } else {
+                if (currentTopic) loadTopic(currentTopic);
+                else renderTopicBar();
+            }
+        }
+
+        function populateEditTopicSelect() {
+            const sel = document.getElementById('editTopicSelect');
+            if (!QUESTIONS) return;
+            sel.innerHTML = '';
+            for (const [id, data] of Object.entries(QUESTIONS)) {
+                const opt = document.createElement('option');
+                opt.value = id;
+                opt.textContent = data.name;
+                sel.appendChild(opt);
+            }
+        }
+
+        function renderEditUI(topicId) {
+            const data = QUESTIONS[topicId];
+            if (!data) return;
+            const container = document.getElementById('topicEditorArea');
+            container.innerHTML = '';
+
+            const topicDiv = document.createElement('div');
+            topicDiv.className = 'topic-editor';
+            topicDiv.innerHTML = `
+                <label>نام موضوع:</label>
+                <input type="text" id="editTopicName" value="${escapeHtml(data.name)}" data-topic-id="${topicId}">
+                <button id="deleteTopicBtn" class="btn-small btn-danger" style="margin-top:8px;">🗑 حذف موضوع</button>
+                <hr>
+                <h4>سوالات</h4>
+                <div id="questionsList"></div>
+            `;
+            container.appendChild(topicDiv);
+
+            const qList = topicDiv.querySelector('#questionsList');
+
+            data.questions.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-editor';
+                const qType = q.type || 'mcq';
+                const typeOpts = `
+                    <option value="mcq" ${qType==='mcq'?'selected':''}>چند گزینه‌ای</option>
+                    <option value="text" ${qType==='text'?'selected':''}>پاسخ تایپی</option>
+                    <option value="image" ${qType==='image'?'selected':''}>ارسال عکس</option>
+                `;
+                qDiv.innerHTML = `
+                    <select class="q-type-select" data-qidx="${idx}" data-field="type">${typeOpts}</select>
+                    <textarea rows="2" data-qidx="${idx}" data-field="scenario" placeholder="سناریو">${escapeHtml(q.scenario)}</textarea>
+                    <textarea rows="1" data-qidx="${idx}" data-field="question" placeholder="سوال">${escapeHtml(q.question)}</textarea>
+                    <input type="text" data-qidx="${idx}" data-field="option0" value="${escapeHtml(q.options?.[0]||'')}" placeholder="گزینه A">
+                    <input type="text" data-qidx="${idx}" data-field="option1" value="${escapeHtml(q.options?.[1]||'')}" placeholder="گزینه B">
+                    <input type="text" data-qidx="${idx}" data-field="option2" value="${escapeHtml(q.options?.[2]||'')}" placeholder="گزینه C">
+                    <input type="text" data-qidx="${idx}" data-field="option3" value="${escapeHtml(q.options?.[3]||'')}" placeholder="گزینه D">
+                    <input type="text" data-qidx="${idx}" data-field="correct" value="${q.correct||''}" placeholder="پاسخ صحیح (A/B/C/D یا متن)" style="width:180px;">
+                    <textarea rows="2" data-qidx="${idx}" data-field="explanation" placeholder="توضیح">${escapeHtml(q.explanation)}</textarea>
+                    <button class="btn-small btn-danger" data-action="deleteQuestion" data-qidx="${idx}">🗑 حذف</button>
+                `;
+                qList.appendChild(qDiv);
+            });
+
+            // ----- event listeners -----
+            document.getElementById('editTopicName').addEventListener('change', (e) => {
+                QUESTIONS[topicId].name = e.target.value;
+                saveQuestionsToLocalStorage();
+                renderTopicBar();
+            });
+
+            document.getElementById('deleteTopicBtn').onclick = () => {
+                if (confirm(`حذف موضوع "${QUESTIONS[topicId].name}"؟`)) {
+                    delete QUESTIONS[topicId];
                     saveQuestionsToLocalStorage();
-                    renderEditUI(topicId);
+                    const first = Object.keys(QUESTIONS)[0];
+                    if (first) {
+                        document.getElementById('editTopicSelect').value = first;
+                        renderEditUI(first);
+                        if (currentTopic === topicId) loadTopic(first);
+                        else renderTopicBar();
+                    } else {
+                        document.getElementById('topicEditorArea').innerHTML = '<p>هیچ موضوعی باقی نمانده است.</p>';
+                        renderTopicBar();
+                    }
                 }
             };
-        });
-    }
 
-    function addQuestionToCurrentTopic() {
-        const topicId = document.getElementById('editTopicSelect').value;
-        if (!topicId || !QUESTIONS[topicId]) return;
-        const newQuestion = {
-            clause: "user_defined",
-            scenario: "New scenario",
-            question: "New question",
-            options: ["A. Option 1", "B. Option 2", "C. Option 3", "D. Option 4"],
-            correct: "A",
-            explanation: "Explanation here"
-        };
-        QUESTIONS[topicId].questions.push(newQuestion);
-        saveQuestionsToLocalStorage();
-        renderEditUI(topicId);
-    }
+            // Question field changes
+            document.querySelectorAll('#questionsList input, #questionsList textarea, #questionsList select').forEach(f => {
+                if (!f.hasAttribute('data-action')) {
+                    f.addEventListener('change', (e) => {
+                        const qidx = parseInt(f.getAttribute('data-qidx'));
+                        const fld = f.getAttribute('data-field');
+                        let val = f.value;
+                        if (fld === 'correct') val = val.trim();
+                        if (fld === 'option0') { if (!QUESTIONS[topicId].questions[qidx].options) QUESTIONS[topicId]
+                                .questions[qidx].options = []; QUESTIONS[topicId].questions[qidx].options[0] = val; } else if (
+                            fld === 'option1') { if (!QUESTIONS[topicId].questions[qidx].options) QUESTIONS[topicId]
+                                .questions[qidx].options = []; QUESTIONS[topicId].questions[qidx].options[1] = val; } else if (
+                            fld === 'option2') { if (!QUESTIONS[topicId].questions[qidx].options) QUESTIONS[topicId]
+                                .questions[qidx].options = []; QUESTIONS[topicId].questions[qidx].options[2] = val; } else if (
+                            fld === 'option3') { if (!QUESTIONS[topicId].questions[qidx].options) QUESTIONS[topicId]
+                                .questions[qidx].options = []; QUESTIONS[topicId].questions[qidx].options[3] = val; } else if (
+                            fld === 'correct') { QUESTIONS[topicId].questions[qidx].correct = val; } else if (fld ===
+                            'scenario') { QUESTIONS[topicId].questions[qidx].scenario = val; } else if (fld === 'question') {
+                            QUESTIONS[topicId].questions[qidx].question = val; } else if (fld === 'explanation') { QUESTIONS[
+                                topicId].questions[qidx].explanation = val; } else if (fld === 'type') { QUESTIONS[topicId]
+                                .questions[qidx].type = val; }
+                        saveQuestionsToLocalStorage();
+                    });
+                }
+            });
 
-    function refreshEditFromDropdown() {
-        const selected = document.getElementById('editTopicSelect').value;
-        if (selected && QUESTIONS[selected]) renderEditUI(selected);
-    }
+            // Delete question
+            document.querySelectorAll('#questionsList .btn-danger[data-action="deleteQuestion"]').forEach(btn => {
+                btn.onclick = () => {
+                    const qidx = parseInt(btn.getAttribute('data-qidx'));
+                    if (confirm('حذف این سوال؟')) {
+                        QUESTIONS[topicId].questions.splice(qidx, 1);
+                        saveQuestionsToLocalStorage();
+                        renderEditUI(topicId);
+                    }
+                };
+            });
+        }
 
-    function escapeHtml(str) { 
-        if (!str) return '';
-        return str.replace(/[&<>]/g, m => m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); 
-    }
+        function addQuestionToCurrentTopic() {
+            const topicId = document.getElementById('editTopicSelect').value;
+            if (!topicId || !QUESTIONS[topicId]) return;
+            const newQ = {
+                type: 'mcq',
+                scenario: 'سناریوی جدید',
+                question: 'سوال جدید',
+                options: ['A. گزینه 1', 'B. گزینه 2', 'C. گزینه 3', 'D. گزینه 4'],
+                correct: 'A',
+                explanation: 'توضیح جدید'
+            };
+            QUESTIONS[topicId].questions.push(newQ);
+            saveQuestionsToLocalStorage();
+            renderEditUI(topicId);
+        }
 
-    // Reference change handler
-    async function onReferenceChange() {
-        currentRef = document.getElementById('refSelect').value;
-        // Clear current UI
-        document.getElementById('topicBar').innerHTML = '<div style="padding: 1rem;">Loading reference...</div>';
-        document.getElementById('questionArea').innerHTML = '';
-        document.getElementById('progressMsg').innerText = 'Switching reference...';
-        if (isEditMode) toggleEditMode(); // exit edit mode
-        await loadQuestions();
-    }
+        function refreshEditFromDropdown() {
+            const sel = document.getElementById('editTopicSelect').value;
+            if (sel && QUESTIONS[sel]) renderEditUI(sel);
+        }
 
-    // Wire buttons
-    document.getElementById('toggleEditBtn').onclick = toggleEditMode;
-    document.getElementById('exportJsonBtn').onclick = exportAsJson;
-    document.getElementById('resetDataBtn').onclick = resetToOriginal;
-    document.getElementById('addQuestionToTopicBtn').onclick = addQuestionToCurrentTopic;
-    document.getElementById('refreshEditBtn').onclick = refreshEditFromDropdown;
-    document.getElementById('refSelect').addEventListener('change', onReferenceChange);
+        // ============================================================
+        //  RESET & EXPORT
+        // ============================================================
+        function resetToOriginal() {
+            if (confirm(`بازنشانی فصل "${references[currentRef].label}" به حالت اولیه؟`)) {
+                QUESTIONS = JSON.parse(JSON.stringify(ORIGINAL_QUESTIONS));
+                saveQuestionsToLocalStorage();
+                const first = Object.keys(QUESTIONS)[0];
+                if (first) loadTopic(first);
+                else renderTopicBar();
+                if (isEditMode) {
+                    const sel = document.getElementById('editTopicSelect').value;
+                    if (sel && QUESTIONS[sel]) renderEditUI(sel);
+                }
+            }
+        }
 
-    // Initial load (Part I by default)
-    loadQuestions();
-</script>
+        function exportAsJson() {
+            const dataStr = JSON.stringify(QUESTIONS, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentRef}_edited.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ============================================================
+        //  REFERENCE CHANGE
+        // ============================================================
+        async function onReferenceChange() {
+            currentRef = document.getElementById('refSelect').value;
+            document.getElementById('topicBar').innerHTML = '<div style="padding:1rem;">در حال بارگذاری...</div>';
+            document.getElementById('questionArea').innerHTML = '';
+            document.getElementById('progressMsg').innerText = 'تغییر فصل...';
+            if (isEditMode) toggleEditMode();
+            await loadQuestions();
+        }
+
+        // ============================================================
+        //  WIRE UP
+        // ============================================================
+        document.getElementById('toggleEditBtn').onclick = toggleEditMode;
+        document.getElementById('exportJsonBtn').onclick = exportAsJson;
+        document.getElementById('resetDataBtn').onclick = resetToOriginal;
+        document.getElementById('addQuestionToTopicBtn').onclick = addQuestionToCurrentTopic;
+        document.getElementById('refreshEditBtn').onclick = refreshEditFromDropdown;
+        document.getElementById('refSelect').addEventListener('change', onReferenceChange);
+
+        // ============================================================
+        //  BOOT
+        // ============================================================
+        loadQuestions();
+    </script>
+
 </body>
 </html>
